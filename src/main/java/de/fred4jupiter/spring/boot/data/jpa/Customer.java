@@ -13,6 +13,16 @@ public class Customer {
 	private Long id;
 
 	private String name;
+	
+	private String phone;
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public Long getId() {
 		return id;
