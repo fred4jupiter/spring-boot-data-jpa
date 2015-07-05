@@ -1,15 +1,14 @@
-package de.fred4jupiter.spring.boot.data.jpa;
+package de.fred4jupiter.spring.boot.data.jpa.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Customer {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private Long id;
 
 	private String name;

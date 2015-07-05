@@ -13,6 +13,7 @@ public class ApplicationTest {
 
 	@Test
 	public void contextLoads() {
+		// test loading context
 	}
 
 }
