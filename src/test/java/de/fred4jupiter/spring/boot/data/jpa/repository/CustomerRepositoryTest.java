@@ -26,12 +26,13 @@ public class CustomerRepositoryTest {
 
 		Customer foundCustomer = customerRepository.findOne(savedCustomer.getId());
 		assertNotNull(foundCustomer);
-		assertEquals(savedCustomer.getName(), foundCustomer.getName());
+		assertEquals(savedCustomer.getFirstname(), foundCustomer.getFirstname());
 	}
 
 	private Customer saveCustomer() {
 		Customer customer = new Customer();
-		customer.setName("sdfs");
+		customer.setFirstname("Fred");
+		customer.setLastname("Feuerstein");
 		Customer savedCustomer = customerRepository.save(customer);
 		assertNotNull(savedCustomer);
 		return savedCustomer;
@@ -41,8 +42,8 @@ public class CustomerRepositoryTest {
 	public void findByName() {
 		Customer savedCustomer = saveCustomer();
 
-		Customer foundCustomer = customerRepository.findByName(savedCustomer.getName());
+		Customer foundCustomer = customerRepository.findByFirstname(savedCustomer.getFirstname());
 		assertNotNull(foundCustomer);
-		assertEquals(savedCustomer.getName(), foundCustomer.getName());
+		assertEquals(savedCustomer.getFirstname(), foundCustomer.getFirstname());
 	}
 }

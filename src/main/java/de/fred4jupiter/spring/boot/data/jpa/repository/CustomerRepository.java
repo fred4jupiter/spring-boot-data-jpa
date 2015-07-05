@@ -6,6 +6,6 @@ import de.fred4jupiter.spring.boot.data.jpa.entity.Customer;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-	Customer findByName(String name);
+	Customer findByFirstname(String firstname);
 
 }
