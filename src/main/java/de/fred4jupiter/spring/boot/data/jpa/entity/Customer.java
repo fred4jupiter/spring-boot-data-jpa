@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
 
 @Entity
 public class Customer {
@@ -33,6 +35,26 @@ public class Customer {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "CUSTOMER_ID")
 	private Set<Address> addresses = new HashSet<>();
+
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (obj == this) {
+			return true;
+		}
+		if (obj.getClass() != getClass()) {
+			return false;
+		}
+		Customer rhs = (Customer) obj;
+		return new EqualsBuilder().appendSuper(super.equals(obj)).append(firstname, rhs.firstname)
+				.append(lastname, rhs.lastname).append(phone, rhs.phone).isEquals();
+	}
+
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37).append(firstname).append(lastname).append(phone).toHashCode();
+	}
 
 	public String getPhone() {
 		return phone;
@@ -69,13 +91,9 @@ public class Customer {
 	public void setAddresses(Set<Address> addresses) {
 		this.addresses = addresses;
 	}
-	
+
 	@Override
 	public String toString() {
-		final ToStringBuilder builder = new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE);
-		builder.append("firstname", firstname);
-		builder.append("lastname", lastname);
-		builder.append("phone", phone);
-		return builder.toString();
+		return new ReflectionToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).toString();
 	}
 }
