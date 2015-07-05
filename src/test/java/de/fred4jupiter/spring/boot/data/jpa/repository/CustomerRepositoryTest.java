@@ -86,7 +86,7 @@ public class CustomerRepositoryTest {
 	
 	@Test
 	public void findByFirstnameAndLastnameLike() {
-		List<Customer> customers = customerRepository.findAll(where(hasFirstnameLike("Fred")).and(hasLastnameLike("Feuerstein")));
+		List<Customer> customers = customerRepository.findAll(where(hasFirstnameLike("Fre")).and(hasLastnameLike("Feuer")));
 		assertNotNull(customers);
 		assertThat(customers, hasItem(Matchers.<Customer>hasProperty("firstname", equalTo(customer.getFirstname()))));
 		assertThat(customers, hasItem(Matchers.<Customer>hasProperty("lastname", equalTo(customer.getLastname()))));

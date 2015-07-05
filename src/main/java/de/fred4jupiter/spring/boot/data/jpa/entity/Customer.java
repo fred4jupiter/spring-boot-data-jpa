@@ -23,8 +23,6 @@ public class Customer {
 	@Column(name = "LAST_NAME")
 	private String lastname;
 
-	private String phone;
-
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
@@ -37,20 +35,12 @@ public class Customer {
 		}
 		Customer rhs = (Customer) obj;
 		return new EqualsBuilder().appendSuper(super.equals(obj)).append(firstname, rhs.firstname)
-				.append(lastname, rhs.lastname).append(phone, rhs.phone).isEquals();
+				.append(lastname, rhs.lastname).isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		return new HashCodeBuilder(17, 37).append(firstname).append(lastname).append(phone).toHashCode();
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
+		return new HashCodeBuilder(17, 37).append(firstname).append(lastname).toHashCode();
 	}
 
 	public Long getId() {
