@@ -1,20 +1,13 @@
 package de.fred4jupiter.spring.boot.data.jpa.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 @Entity
@@ -31,10 +24,6 @@ public class Customer {
 	private String lastname;
 
 	private String phone;
-
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "CUSTOMER_ID")
-	private Set<Address> addresses = new HashSet<>();
 
 	public boolean equals(Object obj) {
 		if (obj == null) {
@@ -82,14 +71,6 @@ public class Customer {
 
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
-	}
-
-	public Set<Address> getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(Set<Address> addresses) {
-		this.addresses = addresses;
 	}
 
 	@Override

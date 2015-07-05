@@ -1,5 +1,9 @@
 package de.fred4jupiter.spring.boot.data.jpa.repository;
 
+import static de.fred4jupiter.spring.boot.data.jpa.specs.CustomerSpecs.hasFirstnameLike;
+import static de.fred4jupiter.spring.boot.data.jpa.specs.CustomerSpecs.hasLastnameLike;
+import static org.springframework.data.jpa.domain.Specifications.where;
+
 import java.util.List;
 
 import org.hamcrest.Matchers;
@@ -9,12 +13,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasProperty;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,9 +27,6 @@ import static org.junit.Assert.assertThat;
 import de.fred4jupiter.spring.boot.data.jpa.Application;
 import de.fred4jupiter.spring.boot.data.jpa.entity.Customer;
 import de.fred4jupiter.spring.boot.data.jpa.specs.CustomerSpecs;
-
-import static de.fred4jupiter.spring.boot.data.jpa.specs.CustomerSpecs.*;
-import static org.springframework.data.jpa.domain.Specifications.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -85,11 +86,21 @@ public class CustomerRepositoryTest {
 	
 	@Test
 	public void findByFirstnameAndLastnameLike() {
-		Specifications<Customer> spec = where(hasFirstnameLike("Fred")).and(hasLastnameLike("Feuerstein"));
-		
-		List<Customer> customers = customerRepository.findAll(spec);
+		List<Customer> customers = customerRepository.findAll(where(hasFirstnameLike("Fred")).and(hasLastnameLike("Feuerstein")));
 		assertNotNull(customers);
 		assertThat(customers, hasItem(Matchers.<Customer>hasProperty("firstname", equalTo(customer.getFirstname()))));
 		assertThat(customers, hasItem(Matchers.<Customer>hasProperty("lastname", equalTo(customer.getLastname()))));
+	}
+	
+	@Test
+	public void findWithPageable() {
+		PageRequest pageRequest = new PageRequest(0, 1);
+		Page<Customer> pageOne = customerRepository.findAll(pageRequest);
+		assertNotNull(pageOne);
+		assertEquals(1, pageOne.getSize());
+		
+		for (Customer customer : pageOne.getContent()) {
+			System.out.println("Customer: "+customer);
+		}
 	}
 }
