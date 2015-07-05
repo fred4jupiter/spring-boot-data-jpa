@@ -3,12 +3,13 @@ package de.fred4jupiter.spring.boot.data.jpa.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import de.fred4jupiter.spring.boot.data.jpa.entity.Customer;
 
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSpecificationExecutor<Customer> {
 
 	List<Customer> findByFirstname(String firstname);
 	
