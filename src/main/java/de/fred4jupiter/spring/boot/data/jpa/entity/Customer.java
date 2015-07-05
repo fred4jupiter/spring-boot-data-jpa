@@ -1,6 +1,5 @@
 package de.fred4jupiter.spring.boot.data.jpa.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,10 +16,8 @@ public class Customer {
 	@GeneratedValue
 	private Long id;
 
-	@Column(name = "FIRST_NAME")
 	private String firstname;
 
-	@Column(name = "LAST_NAME")
 	private String lastname;
 
 	public boolean equals(Object obj) {
